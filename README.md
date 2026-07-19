@@ -10,6 +10,6 @@ A standalone browser-based converter for optical spectroscopy units:
 
 Live site: https://rcbangari.github.io/photon_energy_unit_conv/
 
-## Copyright
+## License
 
-Copyright © 2026 Ramachandra Bangari. All rights reserved.
+Copyright © 2026 Ramachandra Bangari. Licensed under the [MIT License](LICENSE).
