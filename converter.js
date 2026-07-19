@@ -40,14 +40,22 @@
       slider: document.querySelector("#spectrum-slider-value")
     };
     const spectrumFormat = (value) => Number(value.toPrecision(6)).toLocaleString("en-US", {maximumFractionDigits: 6});
-    const spectrumScaleValue = (cm1, unit) => unit === "cm1" ? cm1 : unit === "um" ? 1e4 / cm1 : unit === "ev" ? cm1 * EV_PER_CM1 : cm1 * THZ_PER_CM1;
+    const spectrumScaleTicks = {
+      cm1: [10, 100, 1000, 10000, 100000],
+      um: [1000, 100, 10, 1, 0.1],
+      ev: [0.001, 0.01, 0.1, 1, 10],
+      thz: [0.1, 1, 10, 100, 1000]
+    };
+    const spectrumTickCm1 = (value, unit) => unit === "cm1" ? value : unit === "um" ? 1e4 / value : unit === "ev" ? value / EV_PER_CM1 : value / THZ_PER_CM1;
     document.querySelectorAll("[data-spectrum-scale]").forEach((row) => {
       const ticks = row.querySelector(".spectrum-scale-ticks");
-      [0, 0.25, 0.5, 0.75, 1].forEach((position) => {
+      const unit = row.dataset.spectrumScale;
+      spectrumScaleTicks[unit].forEach((value) => {
         const tick = document.createElement("span");
-        const logCm1 = Number(spectrumSlider.min) + (Number(spectrumSlider.max) - Number(spectrumSlider.min)) * position;
+        const logCm1 = Math.log10(spectrumTickCm1(value, unit));
+        const position = (logCm1 - Number(spectrumSlider.min)) / (Number(spectrumSlider.max) - Number(spectrumSlider.min));
         tick.style.left = `${position * 100}%`;
-        tick.textContent = spectrumFormat(spectrumScaleValue(10 ** logCm1, row.dataset.spectrumScale));
+        tick.textContent = value.toLocaleString("en-US", {maximumFractionDigits: 6});
         ticks.appendChild(tick);
       });
     });
