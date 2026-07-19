@@ -1,2 +1,11 @@
-# spectra-convert-light-units
-A standalone optical spectrum unit converter for wavenumber, wavelength, frequency, and photon energy.
+# Spectral Unit Converter
+
+A standalone browser-based converter for optical spectroscopy units:
+
+- Wavenumber (cm⁻¹)
+- Wavelength (μm and nm)
+- Photon energy (eV and meV)
+- Frequency (THz)
+- Spectral-line separation
+
+Live site: https://rcbangari.github.io/spectra-convert-light-units/
