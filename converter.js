@@ -36,7 +36,14 @@
       const cm1 = toCm1(value, unit);
       units.forEach((target) => {if (target !== unit) inputs[target].value = format(fromCm1(cm1, target));});
     };
-    units.forEach((unit) => {inputs[unit].addEventListener("input", (event) => updateUnits(unit, event.target.value));inputs[unit].addEventListener("focus", () => setActive(unit));});
+    units.forEach((unit) => {
+      inputs[unit].addEventListener("input", (event) => updateUnits(unit, event.target.value));
+      inputs[unit].addEventListener("focus", () => setActive(unit));
+      inputs[unit].addEventListener("blur", (event) => {
+        const value = Number(event.target.value);
+        if (event.target.value !== "" && Number.isFinite(value)) event.target.value = format(value);
+      });
+    });
     document.querySelector("#clear-converter").addEventListener("click", () => {units.forEach((unit) => inputs[unit].value = "");error.hidden = true;});
     const copy = async (text, button) => {if (!text || text === "—") return;await navigator.clipboard.writeText(text.replaceAll(",", ""));const previous=button.textContent;button.textContent="Copied";setTimeout(()=>button.textContent=previous,1200);};
     document.querySelectorAll("[data-copy]").forEach((button) => button.addEventListener("click", () => copy(document.getElementById(button.dataset.copy).value, button)));
@@ -51,6 +58,10 @@
       Object.entries(resultNodes).forEach(([key,node]) => node.textContent=values[key]===null?"—":format(values[key]));
     };
     lineA.addEventListener("input",updateDifference);lineB.addEventListener("input",updateDifference);
+    [lineA, lineB].forEach((input) => input.addEventListener("blur", () => {
+      const value = Number(input.value);
+      if (input.value !== "" && Number.isFinite(value)) input.value = format(value);
+    }));
     document.querySelectorAll("[data-copy-result]").forEach((button) => button.addEventListener("click", () => copy(resultNodes[button.dataset.copyResult].textContent,button)));
   });
 })();
