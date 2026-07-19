@@ -47,6 +47,8 @@
       thz: [0.1, 1, 10, 100, 1000]
     };
     const spectrumTickCm1 = (value, unit) => unit === "cm1" ? value : unit === "um" ? 1e4 / value : unit === "ev" ? value / EV_PER_CM1 : value / THZ_PER_CM1;
+    const spectrumTickLabel = (value) => value.toLocaleString("en-US", {maximumFractionDigits: 6});
+    const spectrumCompactTickLabel = (value) => value >= 1000 ? `${value / 1000}k` : spectrumTickLabel(value);
     document.querySelectorAll("[data-spectrum-scale]").forEach((row) => {
       const ticks = row.querySelector(".spectrum-scale-ticks");
       const unit = row.dataset.spectrumScale;
@@ -55,7 +57,16 @@
         const logCm1 = Math.log10(spectrumTickCm1(value, unit));
         const position = (logCm1 - Number(spectrumSlider.min)) / (Number(spectrumSlider.max) - Number(spectrumSlider.min));
         tick.style.left = `${position * 100}%`;
-        tick.textContent = value.toLocaleString("en-US", {maximumFractionDigits: 6});
+        if (position <= 0.03) tick.classList.add("tick-edge-start");
+        if (position >= 0.97) tick.classList.add("tick-edge-end");
+        const fullLabel = document.createElement("span");
+        const compactLabel = document.createElement("span");
+        fullLabel.className = "tick-label-full";
+        compactLabel.className = "tick-label-compact";
+        fullLabel.textContent = spectrumTickLabel(value);
+        compactLabel.textContent = spectrumCompactTickLabel(value);
+        tick.setAttribute("aria-label", spectrumTickLabel(value));
+        tick.append(fullLabel, compactLabel);
         ticks.appendChild(tick);
       });
     });
