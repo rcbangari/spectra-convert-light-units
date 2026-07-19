@@ -40,16 +40,27 @@
       slider: document.querySelector("#spectrum-slider-value")
     };
     const spectrumFormat = (value) => Number(value.toPrecision(6)).toLocaleString("en-US", {maximumFractionDigits: 6});
+    const spectrumScaleValue = (cm1, unit) => unit === "cm1" ? cm1 : unit === "um" ? 1e4 / cm1 : unit === "ev" ? cm1 * EV_PER_CM1 : cm1 * THZ_PER_CM1;
+    document.querySelectorAll("[data-spectrum-scale]").forEach((row) => {
+      const ticks = row.querySelector(".spectrum-scale-ticks");
+      [0, 0.25, 0.5, 0.75, 1].forEach((position) => {
+        const tick = document.createElement("span");
+        const logCm1 = Number(spectrumSlider.min) + (Number(spectrumSlider.max) - Number(spectrumSlider.min)) * position;
+        tick.style.left = `${position * 100}%`;
+        tick.textContent = spectrumFormat(spectrumScaleValue(10 ** logCm1, row.dataset.spectrumScale));
+        ticks.appendChild(tick);
+      });
+    });
     const updateSpectrum = () => {
-      const logThz = Number(spectrumSlider.value);
-      const thz = 10 ** logThz;
-      const cm1 = thz / THZ_PER_CM1;
+      const logCm1 = Number(spectrumSlider.value);
+      const cm1 = 10 ** logCm1;
+      const thz = cm1 * THZ_PER_CM1;
       spectrumOutputs.cm1.textContent = spectrumFormat(cm1);
       spectrumOutputs.um.textContent = spectrumFormat(1e4 / cm1);
       spectrumOutputs.ev.textContent = spectrumFormat(cm1 * EV_PER_CM1);
       spectrumOutputs.thz.textContent = spectrumFormat(thz);
-      spectrumOutputs.slider.textContent = `${spectrumFormat(thz)} THz`;
-      spectrumMarker.style.left = `${((logThz - Number(spectrumSlider.min)) / (Number(spectrumSlider.max) - Number(spectrumSlider.min))) * 100}%`;
+      spectrumOutputs.slider.textContent = `${spectrumFormat(cm1)} cm⁻¹`;
+      spectrumMarker.style.left = `${((logCm1 - Number(spectrumSlider.min)) / (Number(spectrumSlider.max) - Number(spectrumSlider.min))) * 100}%`;
     };
     spectrumSlider.addEventListener("input", updateSpectrum);
     updateSpectrum();
