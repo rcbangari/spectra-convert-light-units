@@ -1,8 +1,36 @@
+:root {
+  --link-gold: #9a6700;
+  --subheading-text: #536044;
+}
+
+:root[data-theme="dark"] {
+  --link-gold: #f2c66d;
+  --subheading-text: #ddd3ae;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --link-gold: #f2c66d;
+    --subheading-text: #ddd3ae;
+  }
+}
+
 html body a[href],
 html body a[href] *,
 html body a[href]::before,
 html body a[href]::after {
   cursor: pointer !important;
+}
+
+html body a[href] {
+  color: var(--link-gold) !important;
+}
+
+.eyebrow,
+.intro > p:last-child,
+.section-heading > p,
+.sources {
+  color: var(--subheading-text) !important;
 }
 
 a[href] {
