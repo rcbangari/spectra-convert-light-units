@@ -1,8 +1,17 @@
 .difference-card {
+  position: relative;
   background: var(--white);
   color: var(--ink);
   border-color: var(--ink);
   box-shadow: 9px 9px 0 var(--surface);
+}
+
+.difference-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px -1px auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--body), var(--warm), var(--accent));
 }
 
 .intro h1 {
