@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Convert optical wavenumber, wavelength, frequency, and photon energy units.">
-<title>Spectral Unit Converter</title>
+<title>Photon Energy Unit Converter</title>
 <script>
 (() => {
   const saved = localStorage.getItem("theme");
@@ -12,6 +12,7 @@
 })();
 </script>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="theme-overrides.css">
 </head>
 <body>
 <header class="site-header">
@@ -22,8 +23,7 @@
 </header>
 <main>
 <section class="intro">
-<p class="eyebrow">Optical spectroscopy utility</p>
-<h1>Spectral unit converter</h1>
+<h1>Photon Energy Unit Converter</h1>
 <p>Convert optical frequency, wavenumber, wavelength, and photon energy instantly. Edit any field; the rest update as you type.</p>
 </section>
 
@@ -34,28 +34,28 @@
 </div>
 <div class="unit-grid">
 <div class="unit-field active" data-field="cm1">
-<label for="unit-cm1"><span>Wavenumber</span><small>common in IR &amp; Raman</small></label>
-<div class="input-row"><input id="unit-cm1" data-unit="cm1" type="number" inputmode="decimal" min="0" step="any" value="1000"><span>cm⁻¹</span><button type="button" data-copy="unit-cm1">Copy</button></div>
+<label for="unit-cm1"><span>Wavenumber</span></label>
+<div class="input-row"><input id="unit-cm1" data-unit="cm1" type="number" inputmode="decimal" min="0" step="any" value="1000.0000"><span>cm⁻¹</span><button type="button" data-copy="unit-cm1">Copy</button></div>
 </div>
 <div class="unit-field" data-field="um">
-<label for="unit-um"><span>Wavelength</span><small>vacuum wavelength</small></label>
-<div class="input-row"><input id="unit-um" data-unit="um" type="number" inputmode="decimal" min="0" step="any" value="10"><span>μm</span><button type="button" data-copy="unit-um">Copy</button></div>
+<label for="unit-um"><span>Wavelength</span></label>
+<div class="input-row"><input id="unit-um" data-unit="um" type="number" inputmode="decimal" min="0" step="any" value="10.0000"><span>μm</span><button type="button" data-copy="unit-um">Copy</button></div>
 </div>
 <div class="unit-field" data-field="nm">
-<label for="unit-nm"><span>Wavelength</span><small>vacuum wavelength</small></label>
-<div class="input-row"><input id="unit-nm" data-unit="nm" type="number" inputmode="decimal" min="0" step="any" value="10000"><span>nm</span><button type="button" data-copy="unit-nm">Copy</button></div>
-</div>
-<div class="unit-field" data-field="ev">
-<label for="unit-ev"><span>Photon energy</span><small>electronvolts</small></label>
-<div class="input-row"><input id="unit-ev" data-unit="ev" type="number" inputmode="decimal" min="0" step="any" value="0.123984198"><span>eV</span><button type="button" data-copy="unit-ev">Copy</button></div>
-</div>
-<div class="unit-field" data-field="mev">
-<label for="unit-mev"><span>Photon energy</span><small>E = hν</small></label>
-<div class="input-row"><input id="unit-mev" data-unit="mev" type="number" inputmode="decimal" min="0" step="any" value="123.984198"><span>meV</span><button type="button" data-copy="unit-mev">Copy</button></div>
+<label for="unit-nm"><span>Wavelength</span></label>
+<div class="input-row"><input id="unit-nm" data-unit="nm" type="number" inputmode="decimal" min="0" step="any" value="10000.0000"><span>nm</span><button type="button" data-copy="unit-nm">Copy</button></div>
 </div>
 <div class="unit-field" data-field="thz">
-<label for="unit-thz"><span>Frequency</span><small>10¹² cycles per second</small></label>
-<div class="input-row"><input id="unit-thz" data-unit="thz" type="number" inputmode="decimal" min="0" step="any" value="29.9792458"><span>THz</span><button type="button" data-copy="unit-thz">Copy</button></div>
+<label for="unit-thz"><span>Frequency</span></label>
+<div class="input-row"><input id="unit-thz" data-unit="thz" type="number" inputmode="decimal" min="0" step="any" value="29.9792"><span>THz</span><button type="button" data-copy="unit-thz">Copy</button></div>
+</div>
+<div class="unit-field" data-field="ev">
+<label for="unit-ev"><span>Photon energy</span></label>
+<div class="input-row"><input id="unit-ev" data-unit="ev" type="number" inputmode="decimal" min="0" step="any" value="0.1240"><span>eV</span><button type="button" data-copy="unit-ev">Copy</button></div>
+</div>
+<div class="unit-field" data-field="mev">
+<label for="unit-mev"><span>Photon energy</span></label>
+<div class="input-row"><input id="unit-mev" data-unit="mev" type="number" inputmode="decimal" min="0" step="any" value="123.9842"><span>meV</span><button type="button" data-copy="unit-mev">Copy</button></div>
 </div>
 </div>
 <p class="error" id="converter-error" hidden>Enter a positive, finite value.</p>
@@ -66,19 +66,19 @@
 <div class="section-heading"><div><p class="eyebrow">Compare</p><h2 id="difference-title">Two spectral lines</h2></div><p>Enter two wavenumbers to calculate their separation.</p></div>
 <div class="difference-card">
 <div class="difference-inputs">
-<label><span>Line A</span><div><input id="line-a" type="number" min="0" step="any" value="1650"><b>cm⁻¹</b></div></label>
+<label><span>Line A</span><div><input id="line-a" type="number" min="0" step="any" value="1650.0000"><b>cm⁻¹</b></div></label>
 <span aria-hidden="true">−</span>
-<label><span>Line B</span><div><input id="line-b" type="number" min="0" step="any" value="1550"><b>cm⁻¹</b></div></label>
+<label><span>Line B</span><div><input id="line-b" type="number" min="0" step="any" value="1550.0000"><b>cm⁻¹</b></div></label>
 <span aria-hidden="true">=</span>
-<div class="primary-result"><span>Separation</span><strong data-result="cm1">100</strong><b>cm⁻¹</b><button type="button" data-copy-result="cm1">Copy</button></div>
+<div class="primary-result"><span>Separation</span><strong data-result="cm1">100.0000</strong><b>cm⁻¹</b><button type="button" data-copy-result="cm1">Copy</button></div>
 </div>
 <div class="result-grid">
-<div class="result-item"><span>Equivalent wavelength</span><div><strong data-result="equivalentUm">100</strong><b>μm</b></div><button type="button" data-copy-result="equivalentUm">Copy</button></div>
-<div class="result-item"><span>Equivalent wavelength</span><div><strong data-result="equivalentNm">100000</strong><b>nm</b></div><button type="button" data-copy-result="equivalentNm">Copy</button></div>
-<div class="result-item"><span>Actual |λA − λB|</span><div><strong data-result="wavelengthDifference">391.006843</strong><b>nm</b></div><button type="button" data-copy-result="wavelengthDifference">Copy</button></div>
-<div class="result-item"><span>Energy interval</span><div><strong data-result="ev">0.0123984198</strong><b>eV</b></div><button type="button" data-copy-result="ev">Copy</button></div>
-<div class="result-item"><span>Energy interval</span><div><strong data-result="mev">12.3984198</strong><b>meV</b></div><button type="button" data-copy-result="mev">Copy</button></div>
-<div class="result-item"><span>Frequency interval</span><div><strong data-result="thz">2.99792458</strong><b>THz</b></div><button type="button" data-copy-result="thz">Copy</button></div>
+<div class="result-item"><span>Equivalent wavelength</span><div><strong data-result="equivalentUm">100.0000</strong><b>μm</b></div><button type="button" data-copy-result="equivalentUm">Copy</button></div>
+<div class="result-item"><span>Equivalent wavelength</span><div><strong data-result="equivalentNm">100000.0000</strong><b>nm</b></div><button type="button" data-copy-result="equivalentNm">Copy</button></div>
+<div class="result-item"><span class="lambda-label">Actual wavelength difference <i>|λ<sub>A</sub> − λ<sub>B</sub>|</i></span><div><strong data-result="wavelengthDifference">391.0068</strong><b>nm</b></div><button type="button" data-copy-result="wavelengthDifference">Copy</button></div>
+<div class="result-item"><span>Energy interval</span><div><strong data-result="ev">0.0124</strong><b>eV</b></div><button type="button" data-copy-result="ev">Copy</button></div>
+<div class="result-item"><span>Energy interval</span><div><strong data-result="mev">12.3984</strong><b>meV</b></div><button type="button" data-copy-result="mev">Copy</button></div>
+<div class="result-item"><span>Frequency interval</span><div><strong data-result="thz">2.9979</strong><b>THz</b></div><button type="button" data-copy-result="thz">Copy</button></div>
 </div>
 <p class="physics-note"><span>Note</span> “Equivalent wavelength” is 1/Δṽ. It is not the wavelength spacing between the two lines; that quantity is shown separately as |λA − λB|.</p>
 </div>
@@ -89,7 +89,7 @@
 <p>Constants: NIST CODATA values for the <a href="https://physics.nist.gov/cgi-bin/cuu/Value?c">speed of light</a>, <a href="https://physics.nist.gov/cgi-bin/cuu/Value?h">Planck constant</a>, and <a href="https://physics.nist.gov/cgi-bin/cuu/Value?Revj">electron volt–joule relationship</a>.</p>
 </aside>
 </main>
-<footer><span>Spectral Unit Converter</span><a href="https://rcbangari.github.io/">rcbangari.github.io</a></footer>
+<footer><span>Photon Energy Unit Converter</span><a href="https://rcbangari.github.io/">rcbangari.github.io</a></footer>
 <script src="converter.js"></script>
 </body>
 </html>
