@@ -1,4 +1,4 @@
-# Spectral Unit Converter
+# Photon Energy Unit Converter
 
 A standalone browser-based converter for optical spectroscopy units:
 
@@ -8,4 +8,4 @@ A standalone browser-based converter for optical spectroscopy units:
 - Frequency (THz)
 - Spectral-line separation
 
-Live site: https://rcbangari.github.io/spectra-convert-light-units/
+Live site: https://rcbangari.github.io/photon_energy_unit_conv/
