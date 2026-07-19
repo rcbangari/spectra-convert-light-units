@@ -1,14 +1,12 @@
 (() => {
   const THZ_PER_CM1 = 0.0299792458;
   const EV_PER_CM1 = 0.0001239841984;
-  const units = ["cm1", "um", "nm", "ev", "mev", "thz"];
+  const units = ["cm1", "um", "nm", "thz", "ev", "mev"];
   const toCm1 = (value, unit) => unit === "cm1" ? value : unit === "thz" ? value / THZ_PER_CM1 : unit === "nm" ? 1e7 / value : unit === "um" ? 1e4 / value : unit === "mev" ? value / (EV_PER_CM1 * 1e3) : value / EV_PER_CM1;
   const fromCm1 = (value, unit) => unit === "cm1" ? value : unit === "thz" ? value * THZ_PER_CM1 : unit === "nm" ? 1e7 / value : unit === "um" ? 1e4 / value : unit === "mev" ? value * EV_PER_CM1 * 1e3 : value * EV_PER_CM1;
   const format = (value) => {
     if (!Number.isFinite(value)) return "";
-    const absolute = Math.abs(value);
-    if (absolute !== 0 && (absolute >= 1e8 || absolute < 1e-4)) return value.toExponential(7).replace(/\.0+e/, "e");
-    return new Intl.NumberFormat("en-US", {useGrouping:false,maximumSignificantDigits:9}).format(value);
+    return value.toFixed(4);
   };
   const setTheme = (theme) => {
     document.documentElement.dataset.theme = theme;
